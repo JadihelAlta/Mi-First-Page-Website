@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Valeria 💖</title>
+
+<style>
+body {
+    margin: 0;
+    background: white;
+    overflow: hidden;
+    font-family: Arial;
+    text-align: center;
+}
+
+canvas {
+    display: block;
+}
+
+#mensaje {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#sub {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+<div id="mensaje"></div>
+<div id="sub">Eres mi flor favorita 🌸</div>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// 🌸 Nombre (CAMBIA AQUÍ)
+const nombre = "Valeria";
+const mensajeCompleto = "Para ti, " + nombre + " ❤️";
+
+let index = 0;
+const mensajeDiv = document.getElementById("mensaje");
+
+// Animación texto
+setInterval(() => {
+    if (index < mensajeCompleto.length) {
+        mensajeDiv.innerHTML += mensajeCompleto[index];
+        index++;
+    }
+}, 120);
+
+// ❤️ Corazones
+let corazones = [];
+
+for (let i = 0; i < 30; i++) {
+    corazones.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speed: 1 + Math.random() * 2
+    });
+}
+
+// Dibujar flor
+function dibujarFlor() {
+    // Centro
+    ctx.fillStyle = "yellow";
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2 - 50, 20, 0, Math.PI*2);
+    ctx.fill();
+
+    // Pétalos
+    ctx.fillStyle = "pink";
+    for (let i = 0; i < 6; i++) {
+        let angle = i * Math.PI / 3;
+        ctx.beginPath();
+        ctx.arc(
+            canvas.width/2 + Math.cos(angle)*40,
+            canvas.height/2 - 50 + Math.sin(angle)*40,
+            25, 0, Math.PI*2
+        );
+        ctx.fill();
+    }
+
+    // Tallo
+    ctx.fillStyle = "green";
+    ctx.fillRect(canvas.width/2 - 5, canvas.height/2 - 30, 10, 100);
+}
+
+// Animación
+function animar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Corazones
+    ctx.font = "20px Arial";
+    corazones.forEach(c => {
+        ctx.fillText("❤️", c.x, c.y);
+        c.y += c.speed;
+
+        if (c.y > canvas.height) {
+            c.y = 0;
+            c.x = Math.random() * canvas.width;
+        }
+    });
+
+    dibujarFlor();
+
+    requestAnimationFrame(animar);
+}
+
+animar();
+</script>
+
+</body>
+</html>
