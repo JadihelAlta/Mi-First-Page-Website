@@ -1,87 +1,127 @@
 <!DOCTYPE html>
 <html lang="es">
-<head> <!--Es es donde val algunas etiquetas y metas y es lo que no se ve  y la etiqueta head-->
+<head>
+<meta charset="UTF-8">
+<title>Para Valeria 💖</title>
 
-<meta charset="UTF-8" />
-<meta name="description" content="Mi primera pagina web html" />
-<meta name="keywords" content="diseño web, html, JavaScript" />
+<style>
+body {
+    margin: 0;
+    background: white;
+    overflow: hidden;
+    font-family: Arial;
+    text-align: center;
+}
 
-<title>Página de progrmación en html</title> <!--Es es el titulo de la pagina y la etiqueta title-->
-<link rel="stylesheet" href="mihojadeestilos.css"/>
+canvas {
+    display: block;
+}
 
+#mensaje {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#sub {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    font-size: 16px;
+}
+</style>
 </head>
 
-<body> <!--Es es el cuerpo de la pagina y la etiqueta body-->
+<body>
 
-    <header> <!--Es es el encabezado de la pagina y la etiqueta header-->
-        <h1>Este es el titulo o cabecera de nuestra pagina web</h1>
-    </header>
+<canvas id="canvas"></canvas>
+<div id="mensaje"></div>
+<div id="sub">Eres mi flor favorita 🌸</div>
 
-    <nav> <!--Es es la barra de naveagación de la pagina y la etiqueta title-->
-       <ul> <!--Son etiquetas desordenadas y la etiqueta ul-->
-        <li>¿Quienes somos?</li>
-        <li>Soy Jadihel. Ing. En Sistemas</li>
-        <li>Haciendo su primera pagina web</li> 
-        <li>Contactame</li>
-       </ul> 
-    </nav>
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-    <aside> <!--Es la barra lateral para enlaces, etc. y la etiqueta aside-->
-        <blockquote>Sobre Mi</blockquote> <!--Es para citas cortas  y la etiqueta blockquote-->
-        <blockquote>Mi curriculm</blockquote>
-        <blockquote>Temas Interesantes</blockquote>
-    </aside>
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    <section> <!--Es el contenido principal de la pagina, etc. y la etiqueta section-->
-        <article> <!--Es una etiqueta para agrupar grupos de temas y que esten agrupados, y la etiqueta article-->
+// 🌸 Nombre (CAMBIA AQUÍ)
+const nombre = "Valeria";
+const mensajeCompleto = "Para ti, " + nombre + " ❤️";
 
-            <header>
-                <hgroup> <!--Sirve para agrupar titulos y subtitulos, y la etiqueta hgroup-->
-                <h1>Titulo de la informacion de Jadihel </h1>
-                <h2> El ingeniero que ha llegado muy lejos</h2> <!--Subitulo  y la etiqueta h2-->
-                </hgroup>
+let index = 0;
+const mensajeDiv = document.getElementById("mensaje");
 
-            </header>
+// Animación texto
+setInterval(() => {
+    if (index < mensajeCompleto.length) {
+        mensajeDiv.innerHTML += mensajeCompleto[index];
+        index++;
+    }
+}, 120);
 
-            <figure> <!--contenido relacionado a la web. Videos,Imagenes en la etiqueta figure-->
+// ❤️ Corazones
+let corazones = [];
 
-                <img src="imagenes/IMG_1192.JPG"/>
-                
-                <figcaption> <!--Sirve para poner un pie de pagina a fotos o videos, etiqueta figcaption-->
-                    Este soy yo JadiSpecter, posando en una alberca
-                </figcaption>
-            </figure>
+for (let i = 0; i < 30; i++) {
+    corazones.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speed: 1 + Math.random() * 2
+    });
+}
 
-        <p> Aqui estaria la informacion del Señor Jadihel, de quien es y asi.</p>
-        <p> informacion de el.</p>
-        <p> Su vida.</p>
+// Dibujar flor
+function dibujarFlor() {
+    // Centro
+    ctx.fillStyle = "yellow";
+    ctx.beginPath();
+    ctx.arc(canvas.width/2, canvas.height/2 - 50, 20, 0, Math.PI*2);
+    ctx.fill();
 
-        <footer>
-            <p>Comentarios de usuarios</p>
-        </footer>
+    // Pétalos
+    ctx.fillStyle = "pink";
+    for (let i = 0; i < 6; i++) {
+        let angle = i * Math.PI / 3;
+        ctx.beginPath();
+        ctx.arc(
+            canvas.width/2 + Math.cos(angle)*40,
+            canvas.height/2 - 50 + Math.sin(angle)*40,
+            25, 0, Math.PI*2
+        );
+        ctx.fill();
+    }
 
-        </article>
+    // Tallo
+    ctx.fillStyle = "green";
+    ctx.fillRect(canvas.width/2 - 5, canvas.height/2 - 30, 10, 100);
+}
 
-        <article>
-            
-            <header>
-                <h1> Titulo de la noticia</h1>
-            </header>
-            <p> Como se conrvitio en Ingeniero En Sitemas</p>
-            <p> ¿Donde Trabaja?</p>
+// Animación
+function animar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            <footer> 
-                <p> Comentarios del publico</p>
-             </footer>
+    // Corazones
+    ctx.font = "20px Arial";
+    corazones.forEach(c => {
+        ctx.fillText("❤️", c.x, c.y);
+        c.y += c.speed;
 
-        </article>
+        if (c.y > canvas.height) {
+            c.y = 0;
+            c.x = Math.random() * canvas.width;
+        }
+    });
 
-    </section>
+    dibujarFlor();
 
-    <footer> <!--Es la informacion institucional de la empresa, etc. y la etiqueta footer-->
-        Derechos Reservados
-        Telefono: 2382102899
-        Correo: jadielmejor@gmail.com
-    </footer>
+    requestAnimationFrame(animar);
+}
+
+animar();
+</script>
+
 </body>
 </html>
