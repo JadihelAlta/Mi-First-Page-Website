@@ -1,127 +1,96 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Para Valeria 💖</title>
 
-<style>
-body {
-    margin: 0;
-    background: white;
-    overflow: hidden;
-    font-family: Arial;
-    text-align: center;
-}
+<head> <!--Es es donde val algunas etiquetas y metas y es lo que no se ve  y la etiqueta head-->
 
-canvas {
-    display: block;
-}
+    <meta charset="UTF-8" />
+    <meta name="description" content="Mi primera pagina web html" />
+    <meta name="keywords" content="diseño web, html, JavaScript" />
 
-#mensaje {
-    position: absolute;
-    bottom: 60px;
-    width: 100%;
-    font-size: 24px;
-    font-weight: bold;
-}
+    <title>Página de progrmación en html</title> <!--Es es el titulo de la pagina y la etiqueta title-->
+    <link rel="stylesheet" href="mihojadeestilos.css" />
 
-#sub {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    font-size: 16px;
-}
-</style>
 </head>
 
-<body>
+<body> <!--Es es el cuerpo de la pagina y la etiqueta body-->
 
-<canvas id="canvas"></canvas>
-<div id="mensaje"></div>
-<div id="sub">Eres mi flor favorita 🌸</div>
+    <header id="cabeceraweb"> <!--Es es el encabezado de la pagina y la etiqueta header-->
+        <h1>Este es el titulo o cabecera de nuestra pagina web</h1>
+    </header>
 
-<script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+    <nav id="barraprincipal"> <!--Es es la barra de naveagación de la pagina y la etiqueta title-->
+        <ul> <!--Son etiquetas desordenadas y la etiqueta ul-->
+            <li>¿Quienes somos?</li> <!--Sirve para determinar los elementos dentro de una lista -->
+            <li>Soy Jadihel. Ing. En Sistemas</li>
+            <li>Haciendo su primera pagina web</li>
+            <li>Contactame</li>
+        </ul>
+    </nav>
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+    <aside id="barralateral"> <!--Es la barra lateral para enlaces, etc. y la etiqueta aside-->
+        <blockquote>Sobre Mi</blockquote> <!--Es para citas cortas  y la etiqueta blockquote-->
+        <blockquote>Mi curriculm</blockquote>
+        <blockquote>Temas Interesantes</blockquote>
+    </aside>
 
-// 🌸 Nombre (CAMBIA AQUÍ)
-const nombre = "Valeria";
-const mensajeCompleto = "J´aime beaucoup " + nombre + " ❤️";
+    <section id="contenidoprincipal"> <!--Es el contenido principal de la pagina, etc. y la etiqueta section-->
+        <article> <!--Es una etiqueta para agrupar grupos de temas y que esten agrupados, y la etiqueta article-->
 
-let index = 0;
-const mensajeDiv = document.getElementById("mensaje");
+            <header>
+                <hgroup> <!--Sirve para agrupar titulos y subtitulos, y la etiqueta hgroup-->
+                    <h1 id="contenidoprincipal"> Titulo de la informacion de Jadihel </h1>
+                    <h2 style="padding-left: 590px;"> El ingeniero que ha llegado muy lejos </h2> <!--Subitulo  y la etiqueta h2-->
+                </hgroup>
 
-// Animación texto
-setInterval(() => {
-    if (index < mensajeCompleto.length) {
-        mensajeDiv.innerHTML += mensajeCompleto[index];
-        index++;
-    }
-}, 120);
+            </header>
+            <time datetime="2026/04/18" pubdate> Noticia publicada el dia 18/04/2001 </time></address>
+            <!--Sirve para poner fecha y hora con atributos datetime y pubdate indicar fecha y hora-->
 
-// ❤️ Corazones
-let corazones = [];
+            <figure> <!--contenido relacionado a la web. Videos,Imagenes en la etiqueta figure-->
 
-for (let i = 0; i < 30; i++) {
-    corazones.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        speed: 1 + Math.random() * 2
-    });
-}
+                <img src="imagenes/IMG_1192.JPG" />
 
-// Dibujar flor
-function dibujarFlor() {
-    // Centro
-    ctx.fillStyle = "yellow";
-    ctx.beginPath();
-    ctx.arc(canvas.width/2, canvas.height/2 - 50, 20, 0, Math.PI*2);
-    ctx.fill();
+                <figcaption> <!--Sirve para poner un pie de pagina a fotos o videos, etiqueta figcaption-->
+                    Este soy yo JadiSpecter, posando en una alberca
+                </figcaption>
+            </figure>
 
-    // Pétalos
-    ctx.fillStyle = "pink";
-    for (let i = 0; i < 6; i++) {
-        let angle = i * Math.PI / 3;
-        ctx.beginPath();
-        ctx.arc(
-            canvas.width/2 + Math.cos(angle)*40,
-            canvas.height/2 - 50 + Math.sin(angle)*40,
-            25, 0, Math.PI*2
-        );
-        ctx.fill();
-    }
+            <p> <mark>Aqui estaria la informacion del Señor Jadihel, de quien es y asi.</mark> </p> <!--Para remarcar texto con etiqueta mark-->
+            <p> <em>informacion de el.</em> </p> <!--Para enfatizar un texto con etiqueta em-->
+            <p> <strong> Su vida. </strong> </p> <!-- Para marcar texto importante en negrita con etiqueta strong-->
 
-    // Tallo
-    ctx.fillStyle = "green";
-    ctx.fillRect(canvas.width/2 - 5, canvas.height/2 - 30, 10, 100);
-}
+            <footer>
+                <p>Comentarios de usuarios</p>
+            </footer>
 
-// Animación
-function animar() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+        </article>
 
-    // Corazones
-    ctx.font = "20px Arial";
-    corazones.forEach(c => {
-        ctx.fillText("❤️", c.x, c.y);
-        c.y += c.speed;
+        <article>
 
-        if (c.y > canvas.height) {
-            c.y = 0;
-            c.x = Math.random() * canvas.width;
-        }
-    });
+            <header>
+                <h1> Titulo de la noticia</h1>
+            </header>
 
-    dibujarFlor();
+            <p> <cite> Como se conrvitio en Ingeniero En Sistemas </cite> </p>
+            <!--Cite sirve para resaltar titulos de libros etc con etiqueta cite-->
+            <p> ¿Donde Trabaja?</p>
 
-    requestAnimationFrame(animar);
-}
+            <footer>
+                <p> Comentarios del publico</p>
+            </footer>
 
-animar();
-</script>
+        </article>
 
+    </section>
+
+    <footer id="informacion"> <!--Es la informacion institucional de la empresa, etc. y la etiqueta footer-->
+
+        <small> Derechos Reservados </small> <!-- Sirve para poner texto mas pequeño con etiqueta small-->
+
+        <address> Telefono:2382102899 </address> <!--Es para poner informacion del contacto con etiqueta address-->
+        Correo: jadielmejor@gmail.com
+
+    </footer>
 </body>
+
 </html>
